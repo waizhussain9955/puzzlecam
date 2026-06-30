@@ -1199,12 +1199,23 @@ function processResults(result) {
   }
 }
 
+let lastVideoTime = -1;
+
 function renderLoop() {
   if (videoEl.readyState >= 2 && handLandmarker) {
-    drawVideoFrame();
-    const nowMs = performance.now();
-    const result = handLandmarker.detectForVideo(videoEl, nowMs);
-    processResults(result);
+    if (appState === "shattering") {
+      drawVideoFrame();
+      updateAndDrawShatter();
+      statusText.textContent = "saving…";
+    } else {
+      if (videoEl.currentTime !== lastVideoTime) {
+        lastVideoTime = videoEl.currentTime;
+        drawVideoFrame();
+        const nowMs = performance.now();
+        const result = handLandmarker.detectForVideo(videoEl, nowMs);
+        processResults(result);
+      }
+    }
   }
   requestAnimationFrame(renderLoop);
 }
