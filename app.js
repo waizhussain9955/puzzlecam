@@ -16,12 +16,12 @@ const LM = {
   PINKY_MCP: 17,
 };
 
-const PINCH_THRESHOLD = 0.055;
+const PINCH_THRESHOLD = 0.075;
 const FRAME_PADDING = 28;
 const FREEZE_HOLD_MS = 250;
 const COUNTDOWN_SECONDS = 3;
 const FIST_HOLD_FRAMES = 12;
-const SNAP_DISTANCE_RATIO = 0.75;
+const SNAP_DISTANCE_RATIO = 0.85;
 const GRID = 3;
 const LOAD_TIMEOUT_MS = 20000;
 
@@ -405,7 +405,7 @@ async function initWebcam() {
     throw new Error("This browser does not support getUserMedia.");
   }
   const stream = await navigator.mediaDevices.getUserMedia({
-    video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" },
+    video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: "user" },
     audio: false,
   });
   videoEl.srcObject = stream;
